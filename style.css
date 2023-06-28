@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    font-size: 3.2rem;
+    letter-spacing: 8px;
+}
+
+h3 {
+    font-size: 2rem;
+    letter-spacing: 3.5px;
+    color: #00DD00;
+}
+
+.container {
+    max-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.header {
+    padding: 25px 0px;
+    width: 100%;
+    text-align: center;
+    background-color: #00DD00;
+    color: white;
+}
+
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10%;
+    padding: 40px 0px;
+    width: 100%;
+    background-color: white;
+
+} 
+
+.main .boardContainer {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+.field {
+    width: 140px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    font-weight: bolder;
+    color: #00DD00;
+}
+
+
+
+
+/* ===================BOX DESIGN============================= */
+
+
+
+.field:nth-child(1) {
+    border-right: solid 8px #00DD00;
+    border-top-right-radius: 8px;
+    border-bottom: solid 8px #00DD00;
+    border-bottom-left-radius: 8px;
+}
+
+
+.field:nth-child(2) {
+    border-bottom: solid 8px #00DD00;
+}
+
+
+.field:nth-child(3) {
+    border-left: solid 8px #00DD00;
+    border-top-left-radius: 8px;
+    border-bottom: solid 8px #00DD00;
+    border-bottom-right-radius: 8px;
+}
+
+
+.field:nth-child(4) {
+    border-right: solid 8px #00DD00;
+}
+
+
+.field:nth-child(6) {
+    border-left: solid 8px #00DD00;
+}
+
+
+.field:nth-child(7) {
+    border-top: solid 8px #00DD00;
+    border-top-left-radius: 8px;
+    border-right: solid 8px #00DD00;
+    border-bottom-right-radius: 8px;
+}
+
+
+.field:nth-child(8) {
+    border-top: solid 8px #00DD00;
+}
+
+
+.field:nth-child(9) {
+    border-top: solid 8px #00DD00;
+    border-top-right-radius: 8px;
+    border-left: solid 8px #00DD00;
+    border-bottom-left-radius: 8px;
+}
+
+
+
+/* ============================================================= */
+
+
+
+
+
+
+
+
+
+
