@@ -35,6 +35,7 @@ const displayController = (() => {
     const message = document.querySelector("#currentPlayer");
 
 
+
     fields.forEach(field => {
 
         field.addEventListener("click", (e) => {
@@ -66,7 +67,7 @@ const displayController = (() => {
     } 
 
     const messagetext = (m) => {
-        message.textContent = m;
+        message.textContent = ` ${m} `;
     }
 
     return { messagetext };
@@ -86,6 +87,9 @@ const gameController = (() => {
         gameBoard.setField(index, currentPlayerSign()); 
         roundCount++;
         displayController.messagetext(currentPlayerSign());
+        if (roundCount > 9) {
+            gameOver();
+        }
 
     }
 
@@ -96,6 +100,13 @@ const gameController = (() => {
         
     }
 
-    return { playRound };
+    const gameOver = () => {
+        
+        
+       
+    }
+
+
+    return { playRound , gameOver};
 
 })();
