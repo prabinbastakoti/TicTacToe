@@ -15,11 +15,61 @@ const gameBoard = (() => {
 
     const board = ["", "", "", "", "", "", "", "", ""];
 
-    const getBoard = () => {
-        return board;
+    const setField = (index, sign) => {
+        board[index] = sign;
     }
 
-    return { getBoard };
+    const getField = (index) => {
+        return board[index];
+    }
+
+    return { setField, getField ,board};
+
+})();
+
+
+const displayController = (() => {
+
+
+    const fields = document.querySelectorAll(".field");
+    const message = document.querySelector("#currentPlayer");
+
+
+    fields.forEach(field => {
+
+        field.addEventListener("click", (e) => {
+
+            const index = e.target.dataset.index;
+
+            if (gameBoard.getField(index) !== "") return;
+
+            gameController.playRound(index);
+
+            renderBoard();
+
+            console.log(gameBoard.board);
+
+        })
+
+    })
+
+
+    const renderBoard = () => {
+
+        let i = 0;
+
+        fields.forEach((field) => {
+            field.textContent = gameBoard.getField(i);
+            i++;
+        })
+        
+    } 
+
+    const messagetext = (m) => {
+        message.textContent = m;
+    }
+
+    return { messagetext };
 
 })();
 
@@ -29,20 +79,23 @@ const gameController = (() => {
     const playerX = player("X");
     const playerO = player("O");
 
-    const fields = document.querySelectorAll(".field");
+    let roundCount = 1;
 
-    fields.forEach(field => {
+    const playRound = (index) => {
 
-        field.addEventListener("click", () => {
-            field.innerHTML = "X";
-        })
+        gameBoard.setField(index, currentPlayerSign()); 
+        roundCount++;
+        displayController.messagetext(currentPlayerSign());
 
-    })
+    }
 
+    const currentPlayerSign = () => {
 
-    return { updateGameBoard };
+        if (roundCount % 2 == 0) return playerO.getSign();        
+        return playerX.getSign(); 
+        
+    }
+
+    return { playRound };
 
 })();
-
-
-gameController.updateGameBoard();
