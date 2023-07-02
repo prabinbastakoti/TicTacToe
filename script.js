@@ -23,7 +23,13 @@ const gameBoard = (() => {
         return board[index];
     }
 
-    return { setField, getField ,board};
+    const reset = () => {
+        for (let i = 0; i < board.length; i++) {
+            board[i] = "";
+        }
+    }
+
+    return { setField, getField, board, reset };
 
 })();
 
@@ -33,7 +39,7 @@ const displayController = (() => {
 
     const fields = document.querySelectorAll(".field");
     const message = document.querySelector("#currentPlayer");
-
+    const restart = document.getElementById("newGame");
 
 
     fields.forEach(field => {
@@ -54,6 +60,12 @@ const displayController = (() => {
 
     })
 
+    restart.addEventListener("click", () => {
+        gameBoard.reset();
+        gameController.reset();
+        renderBoard();
+
+    })
 
     const renderBoard = () => {
 
@@ -63,8 +75,8 @@ const displayController = (() => {
             field.textContent = gameBoard.getField(i);
             i++;
         })
-        
-    } 
+
+    }
 
     const messagetext = (m) => {
         message.textContent = ` ${m} `;
@@ -82,9 +94,13 @@ const gameController = (() => {
 
     let roundCount = 1;
 
+    const modal = document.querySelector(".modal");
+
+    const popupMessage = document.querySelector(".popupMessage");
+
     const playRound = (index) => {
 
-        gameBoard.setField(index, currentPlayerSign()); 
+        gameBoard.setField(index, currentPlayerSign());
         roundCount++;
         displayController.messagetext(currentPlayerSign());
         if (roundCount > 9) {
@@ -95,18 +111,34 @@ const gameController = (() => {
 
     const currentPlayerSign = () => {
 
-        if (roundCount % 2 == 0) return playerO.getSign();        
-        return playerX.getSign(); 
-        
+        if (roundCount % 2 == 0) return playerO.getSign();
+        return playerX.getSign();
+
     }
 
     const gameOver = () => {
-        
-        
-       
+
+        modal.style.display = "block";
+
+        popupMessage.innerHTML = "Yikes!😬<br>Its a Tie!";
+
+        document.querySelector(".close-btn").addEventListener("click", closePopup);
+
     }
 
+    const closePopup = () => {
+        modal.style.display = "none";
+    }
 
-    return { playRound , gameOver};
+    const reset = () => {
+        roundCount = 1;
+        displayController.messagetext(currentPlayerSign());
+        modal.style.display = "none";
+
+    }
+
+    return { playRound, gameOver ,reset};
 
 })();
+
+

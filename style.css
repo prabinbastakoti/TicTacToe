@@ -106,41 +106,6 @@ h3 {
 }
 
 
-.modalContent.active {
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0
-    }
-
-    to {
-        top: 0;
-        opacity: 1
-    }
-}
-
-@keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0
-    }
-
-    to {
-        top: 0;
-        opacity: 1
-    }
-}
-
-
-
 .close-btn {
     width: 30px;
     height: 30px;
@@ -188,6 +153,7 @@ button#newGame {
     border: none;
     background-color: gainsboro;
     transition: ease-in-out .4s;
+    letter-spacing: 1.5px;
 }
 
 button#newGame:hover {
