@@ -38,12 +38,11 @@ const displayController = (() => {
 
 
     const fields = document.querySelectorAll(".field");
-    const message = document.querySelector("#currentPlayer");
     const restart = document.getElementById("newGame");
     const popupMessage = document.querySelector(".popupMessage");
     const modal = document.querySelector(".modal");
     const closeBtn = document.querySelector(".close-btn");
-
+    const heading = document.querySelector(".heading");
 
 
     fields.forEach(field => {
@@ -58,8 +57,6 @@ const displayController = (() => {
 
             renderBoard();
 
-            console.log(gameBoard.board);
-
         })
 
     })
@@ -68,18 +65,19 @@ const displayController = (() => {
         popupDisplay("none");
     })
 
+
     restart.addEventListener("click", () => {
         gameBoard.reset();
         gameController.reset();
         reset();
         renderBoard();
-
     })
+
 
     const renderBoard = () => {
 
         let i = 0;
-
+        
         fields.forEach((field) => {
             field.textContent = gameBoard.getField(i);
             i++;
@@ -87,24 +85,35 @@ const displayController = (() => {
 
     }
 
-    const messagetext = (m) => {
-        message.textContent = ` ${m} `;
+
+    const currentPlayerText = (m) => {
+        if (m == "Draw") {
+            heading.innerHTML = "It's a Draw";
+        } else {
+            heading.innerHTML = `Player ' ${m} ' Turn`;
+        }
     }
 
     const popupDisplay = (display) => {
         modal.style.display = display;
     }
 
-    const setPopupMessage = (message) => {
-        popupMessage.innerHTML = message;
+    const setPopupMessage = (winner) => {
+        if (winner == "Draw") {
+            popupMessage.innerHTML = "Yikes!😬<br>Its a Tie!";
+        } else {
+            popupMessage.innerHTML = `Congratulations on your well deserved win Player '${winner}'! <br>You're amazing! 🎉`;
+        }
+        
     }
 
     const reset = () => {
-        message.textContent = ' X ';
         popupDisplay("none");
+        setPopupMessage("");
+        heading.innerHTML = "Player ' X ' Turn";
     }
 
-    return { messagetext, setPopupMessage , popupDisplay};
+    return { currentPlayerText, setPopupMessage , popupDisplay };
 
 })();
 
@@ -127,12 +136,13 @@ const gameController = (() => {
         if (roundCount === 9) {
             isOver = true;
             displayController.popupDisplay("block");
-            displayController.setPopupMessage("Yikes!😬<br>Its a Tie!");
+            displayController.setPopupMessage("Draw");
+            displayController.currentPlayerText("Draw");
             return;
         }
 
         roundCount++;
-        displayController.messagetext(currentPlayerSign());
+        displayController.currentPlayerText(currentPlayerSign());
     }
 
     const currentPlayerSign = () => {
@@ -148,7 +158,6 @@ const gameController = (() => {
 
     const reset = () => {
         roundCount = 1;
-        displayController.popupDisplay("none"); 
         isOver = false;
     }
 
