@@ -33,7 +33,7 @@ h3 {
     padding: 25px 0px;
     width: 100%;
     text-align: center;
-    background-color: darkslategrey;
+    background-color: #284343;
     color: ivory;
 }
 
@@ -47,7 +47,7 @@ h3 {
     gap: 10%;
     padding: 50px 0px;
     width: 100%;
-    background-color: #BA4949;
+    background-color: crimson;
 
 }
 
@@ -111,7 +111,7 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: sandybrown;
+    background-color: #F8CA2C;
 }
 
 

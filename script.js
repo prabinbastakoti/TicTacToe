@@ -51,9 +51,9 @@ const displayController = (() => {
 
             const index = e.target.dataset.index;
 
-            if (gameBoard.getField(index) !== "") return;
+            if (gameController.getIsOver() || gameBoard.getField(index) !== "") return;
 
-            gameController.playRound(index);
+            gameController.playRound(parseInt(index));
 
             renderBoard();
 
@@ -89,7 +89,14 @@ const displayController = (() => {
     const currentPlayerText = (m) => {
         if (m == "Draw") {
             heading.innerHTML = "It's a Draw";
-        } else {
+        }
+        else if (m == "WinnerX") {
+            heading.innerHTML = "Player ' X ' Wins";
+        } 
+        else if (m == "WinnerO") {
+            heading.innerHTML = "Player ' O ' Wins";
+        } 
+        else {
             heading.innerHTML = `Player ' ${m} ' Turn`;
         }
     }
@@ -133,6 +140,15 @@ const gameController = (() => {
 
         gameBoard.setField(index, currentPlayerSign());
 
+        if (checkWinner(index)) {
+            const playerSign = currentPlayerSign();
+            isOver = true;
+            displayController.popupDisplay("block");
+            displayController.setPopupMessage(currentPlayerSign());
+            displayController.currentPlayerText(`Winner${playerSign}`);
+            return;
+        }
+
         if (roundCount === 9) {
             isOver = true;
             displayController.popupDisplay("block");
@@ -144,6 +160,28 @@ const gameController = (() => {
         roundCount++;
         displayController.currentPlayerText(currentPlayerSign());
     }
+
+    const checkWinner = (fieldIndex) => {
+        const combinations = [
+            [0, 1, 2],
+            [0, 3, 6],
+            [0, 4, 8],
+            [1, 4, 7],
+            [2, 4, 6],
+            [2, 5, 8],
+            [3, 4, 5],
+            [6, 7, 8]
+        ];
+
+        return combinations
+        .filter((combination) => combination.includes(fieldIndex))
+        .some((possibleCombination) =>
+          possibleCombination.every(
+            (itemIndex) => gameBoard.getField(itemIndex) === currentPlayerSign()
+          )
+        );
+
+    };
 
     const currentPlayerSign = () => {
 
